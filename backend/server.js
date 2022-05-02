@@ -12,7 +12,7 @@ app.use(cors());
 
 const PORT = process.env.PORT || 5002;
 app.listen(
-  1337,
+  PORT,
   console.log(`Server running on ${process.env.NODE_ENV}mode on port ${PORT}`)
 );
 app.use(express.json());
