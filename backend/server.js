@@ -48,3 +48,4 @@ app.post("/api/login", async (req, res) => {
   }
 });
 app.use("/products", productRoutes);
+//server
