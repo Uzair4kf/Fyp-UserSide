@@ -5,11 +5,22 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import productRoutes from "./routes/productRoutes.js";
 import User from "./models/userModel.js";
+import session from "express-session";
+import passport from "./config/passport.js";
 const app = express();
 dotenv.config();
 connectDB();
 app.use(cors());
-
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
+app.use(passport.initialize);
+app.use(passport.session);
 const PORT = process.env.PORT || 5002;
 app.listen(
   PORT,
