@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import connectDB from "./config/db.js";
 import cors from "cors";
+import auth from "./middleware/auth.js";
 import productRoutes from "./routes/productRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
@@ -24,10 +25,6 @@ app.use((req, res, next) => {
   next();
 });
 
-
-
-
-
 // app.use(
 //   session({
 //     secret: "keyboard cat",
@@ -43,7 +40,7 @@ app.listen(
   console.log(`Server running on ${process.env.NODE_ENV}mode on port ${PORT}`)
 );
 app.use(express.json());
-app.post("/api/register", async (req, res) => {
+app.post("/api/register", auth, async (req, res) => {
   try {
     await User.create({
       email: req.body.email,
