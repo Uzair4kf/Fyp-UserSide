@@ -3,9 +3,8 @@ import { OAuth2Client } from "google-auth-library";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const auth = async (req, res) => {
   try {
-    console.log(req.headers.authorization);
     const token = req.headers.authorization?.split(" ")[1];
-
+    console.log(token);
     const googleToken = token?.length > 1000;
 
     if (googleToken) {

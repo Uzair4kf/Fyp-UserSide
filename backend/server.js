@@ -41,6 +41,7 @@ app.listen(
 );
 app.use(express.json());
 app.post("/api/register", auth, async (req, res) => {
+  console.log(req.headers);
   try {
     await User.create({
       email: req.body.email,
