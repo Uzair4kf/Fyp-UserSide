@@ -5,7 +5,8 @@ const getCartItems = async (req, res) => {
   res.json(CartItems);
 };
 const createCartItem = async (req, res) => {
-  const cartItem = new CartItem({
+  console.log(req.body);
+  const cartItem = new Cart({
     product: req.body.product,
     quantity: req.body.product,
   });
@@ -13,4 +14,4 @@ const createCartItem = async (req, res) => {
 
   res.status(201).json(createdCartItem);
 };
-export default { createCartItem, getCartItems };
+export { createCartItem, getCartItems };

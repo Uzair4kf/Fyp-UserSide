@@ -5,7 +5,7 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import auth from "./middleware/auth.js";
 import productRoutes from "./routes/productRoutes.js";
-import cartRoutes from "./routes/cartRoutesf.js";
+import cartRoutes from "./routes/cartRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
 
@@ -25,7 +25,8 @@ app.use((req, res, next) => {
   );
   next();
 });
-
+app.use("/products", productRoutes);
+app.use("/cart", cartRoutes);
 // app.use(
 //   session({
 //     secret: "keyboard cat",
@@ -73,6 +74,5 @@ app.post("/api/login", async (req, res) => {
     return res.json({ status: "error", user: false });
   }
 });
-app.use("/products", productRoutes);
-app.use("/cart", cartRoutes);
+
 //server
