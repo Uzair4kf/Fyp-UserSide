@@ -9,6 +9,7 @@ const createCartItem = async (req, res) => {
   const cartItem = new Cart({
     product: req.body.product,
     quantity: req.body.product,
+    user: req.body.user,
   });
   const createdCartItem = await cartItem.save();
 
