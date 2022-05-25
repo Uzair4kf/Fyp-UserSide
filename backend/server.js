@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import auth from "./middleware/auth.js";
 import productRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutesf.js";
 import User from "./models/userModel.js";
 import session from "express-session";
 
@@ -73,4 +74,5 @@ app.post("/api/login", async (req, res) => {
   }
 });
 app.use("/products", productRoutes);
+app.use("/cart", cartRoutes);
 //server
