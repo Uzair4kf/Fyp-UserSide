@@ -8,10 +8,28 @@ import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
-
+import { Socket } from "socket.io";
+import * as http from "http";
+import { createServer } from "http";
+import { Server } from "socket.io";
 const app = express();
 dotenv.config();
 connectDB();
+const httpServer = createServer();
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost/3000",
+    methods: ["GET", "POST"],
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log(`User Connected: ${socket.id}`);
+  socket.on("disconnect", () => {
+    console.log("User Disconnected", socket.id);
+  });
+});
+
 app.use(cors());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -39,7 +57,7 @@ app.use("/cart", cartRoutes);
 const PORT = process.env.PORT || 5002;
 app.listen(
   PORT,
-  console.log(`Server running on ${process.env.NODE_ENV}mode on port ${PORT}`)
+  console.log(`Server running on ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 app.use(express.json());
 app.post("/api/register", auth, async (req, res) => {
