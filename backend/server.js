@@ -8,31 +8,36 @@ import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
-import { Socket } from "socket.io";
-import * as http from "http";
+
 import { createServer } from "http";
 import { Server } from "socket.io";
 const app = express();
 dotenv.config();
 connectDB();
+app.use(cors());
 const httpServer = createServer();
-const io = new Server(httpServer, {
+const io = new Server(3001, {
   cors: {
-    origin: "http://localhost/3000",
+    origin: "http://localhost/3001",
     methods: ["GET", "POST"],
   },
 });
+// const io = new Server(httpServer, {
+//   cors: {
+//     origin: "http://localhost/3000",
+//     methods: ["GET", "POST"],
+//   },
+// });
 
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
-  socket.on("disconnect", () => {
-    console.log("User Disconnected", socket.id);
-  });
+  // socket.on("disconnect", () => {
+  //   console.log("User Disconnected", socket.id);
+  // });
 });
 
-app.use(cors());
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
