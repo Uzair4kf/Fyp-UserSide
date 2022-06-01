@@ -17,7 +17,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node backend/server",
-    "server": "nodemon backend/server"
+    "server": "nodemon backend/server --ignore client"
   },
   "repository": {
     "type": "git",

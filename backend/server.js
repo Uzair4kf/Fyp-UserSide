@@ -15,29 +15,26 @@ const app = express();
 dotenv.config();
 connectDB();
 app.use(cors());
-const httpServer = createServer();
+
 const io = new Server(3001, {
   cors: {
-    origin: "http://localhost/3001",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
-// const io = new Server(httpServer, {
-//   cors: {
-//     origin: "http://localhost/3000",
-//     methods: ["GET", "POST"],
-//   },
+
+// io.on("connection", (socket) => {
+//   console.log(`User Connected: ${socket.id}`);
+//   socket.on("disconnect", () => {
+//     console.log("User Disconnected", socket.id);
+//   });
+//   socket.on("send_message", (data) => {
+//     socket.emit("receive_message", data);
+//   });
 // });
 
-io.on("connection", (socket) => {
-  console.log(`User Connected: ${socket.id}`);
-  // socket.on("disconnect", () => {
-  //   console.log("User Disconnected", socket.id);
-  // });
-});
-
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000  ");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
