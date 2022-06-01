@@ -7,14 +7,13 @@ const getProducts = async (req, res) => {
   res.json(products);
 };
 const createProductReview = async (req, res) => {
-  console.log(req.user);
   const { rating, comment, currentUser } = req.body;
 
   const product = await Product.findById(req.params.id);
 
   if (product) {
     const alreadyReviewed = product.reviews.find(
-      (r) => r.user.toString() === req.user._id.toString()
+      (r) => r.user.id.toString() === currentUser.id.toString()
     );
 
     if (alreadyReviewed) {
