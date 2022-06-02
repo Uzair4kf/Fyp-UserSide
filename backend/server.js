@@ -8,7 +8,7 @@ import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
-
+import multer from "multer"
 import { createServer } from "http";
 import { Server } from "socket.io";
 const app = express();
