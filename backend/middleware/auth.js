@@ -6,6 +6,7 @@ const auth = async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
 
     const googleToken = token?.length > 1000;
+    console.log("googleToken :", googleToken);
 
     if (googleToken) {
       const ticket = await client.verifyIdToken({
@@ -21,15 +22,14 @@ const auth = async (req, res, next) => {
     } else {
       // to do: verify our custom jwt token
 
-      console.log("error");
+      res.status(401).json({
+        success: false,
+        message: "Something is wrong with your authorization!",
+      });
     }
     next();
   } catch (error) {
-    // console.log(error);
-    res.status(401).json({
-      success: false,
-      message: "Something is wrong with your authorization!",
-    });
+    console.log("google error", error);
   }
 };
 

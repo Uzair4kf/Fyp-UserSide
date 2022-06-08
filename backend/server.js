@@ -11,6 +11,7 @@ import session from "express-session";
 import multer from "multer";
 import { createServer } from "http";
 import { Server } from "socket.io";
+
 const app = express();
 dotenv.config();
 connectDB();
@@ -45,8 +46,15 @@ app.use((req, res, next) => {
   );
   next();
 });
+
+const getUsers = async (req, res) => {
+  const users = await User.find({});
+
+  res.json(users);
+};
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
+app.post("/user-data", getUsers);
 // app.use(
 //   session({
 //     secret: "keyboard cat",
@@ -62,17 +70,19 @@ app.listen(
   console.log(`Server running on ${process.env.NODE_ENV} mode on port ${PORT}`)
 );
 app.use(express.json());
-app.post("/api/register", auth, async (req, res) => {
-  console.log(req.headers.authorization);
+app.post("/api/register", async (req, res) => {
   try {
     await User.create({
       email: req.body.email,
       password: req.body.password,
       username: req.body.username,
     });
-    res.json({ status: "ok" });
+
+    const l = await User.find({});
+    console.log("l :", l);
+
+    res.json({ status: "ok" ,});
   } catch (err) {
-    console.log(err);
     res.json({ status: "error", error: "Duplicate email" });
   }
 });
