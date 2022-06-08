@@ -35,7 +35,7 @@ const io = new Server(3001, {
 // });
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000  ");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
@@ -81,7 +81,7 @@ app.post("/api/register", async (req, res) => {
     const l = await User.find({});
     console.log("l :", l);
 
-    res.json({ status: "ok" ,});
+    res.json({ status: "ok" });
   } catch (err) {
     res.json({ status: "error", error: "Duplicate email" });
   }
