@@ -54,7 +54,7 @@ const getUsers = async (req, res) => {
 };
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
-app.post("/user-data", getUsers);
+app.get("/user-data", getUsers);
 // app.use(
 //   session({
 //     secret: "keyboard cat",

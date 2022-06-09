@@ -6,13 +6,13 @@ const getCartItems = async (req, res) => {
   res.json(CartItems);
 };
 const getCartItemById = async (req, res) => {
-  
   const CartItems = await Cart.find({});
   const items = CartItems.map((item) => {
     const { user } = item;
+    const { cartItems } = item;
 
     if (user.id == req.params.id) {
-      return item;
+      return cartItems;
     }
   });
   res.json(items);
