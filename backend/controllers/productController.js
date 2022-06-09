@@ -6,6 +6,7 @@ const getProducts = async (req, res) => {
 
   res.json(products);
 };
+
 const createProductReview = async (req, res) => {
   const { rating, comment, currentUser } = req.body;
 
