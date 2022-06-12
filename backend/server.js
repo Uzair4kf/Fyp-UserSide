@@ -6,6 +6,7 @@ import cors from "cors";
 import auth from "./middleware/auth.js";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import sliderRoutes from "./routes/sliderRoutes.js";
 import User from "./models/userModel.js";
 import session from "express-session";
 import multer from "multer";
@@ -55,6 +56,7 @@ const getUsers = async (req, res) => {
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
 app.get("/user-data", getUsers);
+app.use("/Slider", sliderRoutes);
 // app.use(
 //   session({
 //     secret: "keyboard cat",
