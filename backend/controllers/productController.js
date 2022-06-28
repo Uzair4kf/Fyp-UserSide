@@ -11,7 +11,7 @@ const createProductReview = async (req, res) => {
   const { rating, comment, currentUser } = req.body;
 
   const product = await Product.findById(req.params.id);
-
+ 
   if (product) {
     const alreadyReviewed = product.reviews.find(
       (r) => r.user.id.toString() === currentUser.id.toString()
@@ -39,10 +39,15 @@ const createProductReview = async (req, res) => {
 
     await product.save();
     res.status(201).json({ message: "Review added" });
-  } else {
+  } 
+
+ 
+ else {
     res.status(404);
     throw new Error("Product not found");
   }
+ 
+  
 };
 
 export { getProducts, createProductReview };
