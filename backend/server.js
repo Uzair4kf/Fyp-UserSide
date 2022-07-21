@@ -7,9 +7,9 @@ import auth from "./middleware/auth.js";
 import productRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
 import sliderRoutes from "./routes/sliderRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 import User from "./models/userModel.js";
-import session from "express-session";
-import multer from "multer";
+
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -36,7 +36,7 @@ const io = new Server(3001, {
 // });
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", " http://localhost:5002");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5002");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
@@ -54,7 +54,9 @@ const getUsers = async (req, res) => {
   res.json(users);
 };
 app.use("/products", productRoutes);
+app.use("/categories", categoryRoutes);
 app.use("/cart", cartRoutes);
+
 app.get("/user-data", getUsers);
 app.use("/Slider", sliderRoutes);
 // app.use(
@@ -73,6 +75,8 @@ app.listen(
 );
 app.use(express.json());
 app.post("/api/register", async (req, res) => {
+  console.log("req :", req);
+
   try {
     await User.create({
       email: req.body.email,
@@ -93,6 +97,7 @@ app.post("/api/login", auth, async (req, res) => {
     email: req.body.email,
     password: req.body.password,
   });
+
   if (user) {
     const token = jwt.sign(
       {
